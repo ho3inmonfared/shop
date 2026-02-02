@@ -1,1 +1,60 @@
-login
+{% extends "_base.html" %}
+{% load static %}
+{% block title %}ورود{% endblock title %}
+
+{% block content %}
+<div class="login-page" style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+    <h2 class="text-center" style="margin-bottom: 20px;">ورود به حساب کاربری</h2>
+
+    
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" style="margin-bottom: 15px;">
+            {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="id_login">ایمیل</label>
+            <input type="email" name="login" id="id_login" class="form-control" placeholder="ایمیل خود را وارد کنید" required
+                   value="{{ request.POST.login|default:'' }}">
+            {% if form.login.errors %}
+                <small class="text-danger">
+                    {% for error in form.login.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="id_password">پسورد</label>
+            <input type="password" name="password" id="id_password" class="form-control" placeholder="پسورد خود را وارد کنید" required>
+            {% if form.password.errors %}
+                <small class="text-danger">
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+
+        
+        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
+            <a href="{% url 'account_reset_password' %}" class="text-primary">پسوردت یادت رفت؟</a>
+        </div>
+
+        
+        <div class="form-group d-flex justify-content-between">
+            <button type="submit" class="btn btn-success" style="width: 48%;">ورود</button>
+            <a href="{% url 'account_signup' %}" class="btn btn-primary" style="width: 48%;">ثبت نام</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
