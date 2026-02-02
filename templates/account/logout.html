@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block title %}خروج از حساب{% endblock title %}
+
+{% block content %}
+<div class="logout-page" style="max-width: 400px; margin: 50px auto; padding: 25px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; text-align: center;">
+    <h2 style="margin-bottom: 20px;">خروج از حساب کاربری</h2>
+
+    <p style="margin-bottom: 30px;">آیا مطمئن هستید که می‌خواهید از حساب خود خارج شوید؟</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" style="width: 100%; margin-bottom: 15px;">خروج</button>
+    </form>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary" style="width: 100%;">بازگشت به صفحه اصلی</a>
+</div>
+{% endblock content %}

@@ -36,8 +36,12 @@
         <div class="row">
           <div class="col-md-6">
             <div class="login">
-              <a href="#" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a>
-              <a href="#" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>
+              {% if user.is_authenticated %}
+                <a href="{% url 'account_logout' %}" class="mybtn"><i class="fa fa-sign-out"></i>خروج</a>
+              {% else %}
+                <a href="{% url 'account_signup' %}" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a>
+                <a href="{% url 'account_login' %}" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>
+              {% endif %}
               <a href="#" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد</a>
             </div>
           </div>

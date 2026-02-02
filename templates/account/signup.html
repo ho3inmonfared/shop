@@ -1,0 +1,72 @@
+{% extends "_base.html" %}
+{% block title %}ثبت نام{% endblock title %}
+
+{% block content %}
+<div class="signup-page" style="max-width: 450px; margin: 50px auto; padding: 25px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+    <h2 class="text-center" style="margin-bottom: 25px;">ثبت نام در سایت</h2>
+
+    
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" style="margin-bottom: 15px;">
+            {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="id_email">ایمیل</label>
+            <input type="email" name="email" id="id_email" class="form-control" placeholder="ایمیل خود را وارد کنید" required
+                   value="{{ request.POST.email|default:'' }}">
+            {% if form.email.errors %}
+                <small class="text-danger">
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="id_password1">پسورد</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="پسورد خود را وارد کنید" required>
+            {% if form.password1.errors %}
+                <small class="text-danger">
+                    {% for error in form.password1.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+
+        
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="id_password2">تکرار پسورد</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="پسورد را دوباره وارد کنید" required>
+            {% if form.password2.errors %}
+                <small class="text-danger">
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+
+       
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">ثبت نام</button>
+        </div>
+
+        
+        <div class="text-center" style="margin-top: 15px;">
+            <span>قبلاً ثبت نام کرده‌اید؟ </span>
+            <a href="{% url 'account_login' %}" class="text-success">ورود</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
